@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currentPlayer = "X";
+  let gameActive = true;
 
   const squares = document.querySelectorAll("#board div");
   const statusEl = document.getElementById("status");
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     square.addEventListener("mouseout", () => square.classList.remove("hover"));
 
     square.addEventListener("click", () => {
+      if (!gameActive) return;
       if (square.textContent !== "") return;
 
       square.textContent = currentPlayer;
@@ -21,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (winner) {
         statusEl.textContent = `Congratulations! ${winner} is the Winner!`;
         statusEl.classList.add("you-won");
+        gameActive = false;
+        return;
       }
 
       currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -35,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statusEl.textContent = "Move your mouse over a square and click to play an X or an O.";
     statusEl.classList.remove("you-won");
     currentPlayer = "X";
+    gameActive = true;
   });
 
   function checkWinner(sq) {
