@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squares = document.querySelectorAll("#board div");
   const statusEl = document.getElementById("status");
+  const newGameBtn = document.querySelector(".btn");
+
+  // Save the original status message
+  const originalStatus = statusEl.textContent;
 
   squares.forEach(square => {
 
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-  // Exercise 4: Function to check for a winner
+  // Exercise 4: Check for a winner
   function checkWinner() {
 
     const winningCombinations = [
@@ -81,5 +85,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return null;
   }
+
+  // Exercise 5: Restart the game
+  newGameBtn.addEventListener("click", () => {
+
+    // Clear all squares
+    squares.forEach(square => {
+      square.textContent = "";
+      square.classList.remove("X", "O", "hover");
+    });
+
+    // Restore the original status message
+    statusEl.textContent = originalStatus;
+    statusEl.classList.remove("you-won");
+
+    // Reset the game
+    currentPlayer = "X";
+    gameActive = true;
+
+  });
 
 });
