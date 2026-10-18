@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusEl = document.getElementById("status");
   const newGameBtn = document.querySelector(".btn");
 
-  // Save the original status message
   const originalStatus = statusEl.textContent;
 
   squares.forEach(square => {
@@ -22,9 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // Stop if the game is over
       if (!gameActive) return;
 
-      // Prevent changing an occupied square
-      if (square.textContent !== "") return;
+      // Exercise 6: Prevent cheating
+      // Do not allow an occupied square to be changed
+      if (square.textContent.trim() !== "") {
+        return;
+      }
 
+      // Display the current player's symbol
       square.textContent = currentPlayer;
       square.classList.add(currentPlayer);
 
@@ -36,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
           `Congratulations! ${winner} is the Winner!`;
 
         statusEl.classList.add("you-won");
-
         gameActive = false;
         return;
       }
@@ -89,17 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Exercise 5: Restart the game
   newGameBtn.addEventListener("click", () => {
 
-    // Clear all squares
+    // Clear all nine squares
     squares.forEach(square => {
       square.textContent = "";
       square.classList.remove("X", "O", "hover");
     });
 
-    // Restore the original status message
+    // Reset the status message
     statusEl.textContent = originalStatus;
     statusEl.classList.remove("you-won");
 
-    // Reset the game
+    // Reset player and game state
     currentPlayer = "X";
     gameActive = true;
 
